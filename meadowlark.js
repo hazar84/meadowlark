@@ -1,11 +1,16 @@
-const express = require('express');
-const expressHandlebars = require('express-handlebars');
-const fortune = require('./lib/fortune');
+import express from 'express';
+import { engine } from 'express-handlebars';
+import { getFortune } from './lib/fortune.js';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 
 // Настройка механизма представлений Handlebars
-app.engine('handlebars', expressHandlebars.engine({
+app.engine('handlebars', engine({
     defaultLayout: 'main',
 }));
 
@@ -24,7 +29,7 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/fortune', (req, res) => {
-    res.render('fortune', {fortune: fortune.getFortune()});
+    res.render('fortune', {fortune: getFortune()});
 });
 
 // Пользовательская страница 404

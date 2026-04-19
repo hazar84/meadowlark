@@ -1,0 +1,23 @@
+<h1>Твое предсказание на сегодня:
+    {{#if fortune}}
+        {{fortune}}
+    {{/if}}
+</h1>
+
+<button onclick="window.location.reload();" 
+    style="background-color: #4CAF50; 
+        color: white; 
+        padding: 10px 20px; 
+        font-size: 16px; 
+        border: none; 
+        border-radius: 10px; 
+        cursor: pointer;
+        margin: 10px 0;">
+    Обновить предсказание
+</button>
+
+<ul>
+    <li><a href="/">На главную</a></li>
+    <li><a href="/about">О Meadowlark Travel</a></li>
+    <li><a href="/404">Тут нечего нет</a></li>
+</ul>

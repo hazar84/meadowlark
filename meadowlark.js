@@ -1,13 +1,6 @@
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
-
-const fortunes = [
-    "победи свои страхи, или они победят тебя.",
-    "рекам нужны истоки.",
-    "не бойся неведомого.",
-    "тебя ждет приятный сюрприз.",
-    "будь проще везде, где только можно.",
-];
+const fortune = require('./lib/fortune');
 
 const app = express();
 
@@ -31,8 +24,7 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/fortune', (req, res) => {
-    const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-    res.render('fortune', {fortune: randomFortune});
+    res.render('fortune', {fortune: fortune.getFortune()});
 });
 
 // Пользовательская страница 404

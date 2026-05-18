@@ -3,6 +3,7 @@ import { engine } from 'express-handlebars';
 import { getFortune } from './lib/fortune.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import { home, about, fortune, notFound, serverError } from './lib/handlers.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -20,28 +21,20 @@ const port = process.env.PORT || 3000;
 
 app.use(express.static(__dirname + '/public'));
 
-app.get('/', (req, res) => {
-    res.render('home');
-});
+// Домашняя страница
+app.get('/', home);
 
-app.get('/about', (req, res) => {
-    res.render('about');
-});
+// Страница "О Meadowlark Travel"
+app.get('/about', about);
 
-app.get('/fortune', (req, res) => {
-    res.render('fortune', {fortune: getFortune()});
-});
+// Страница с предсказанием
+app.get('/fortune', fortune);
 
 // Пользовательская страница 404
-app.use((req, res) => {
-    res.status(404).render('404');
-});
+app.use(notFound);
 
 // Пользовательская страница 500
-app.use((err, req, res, next) => {
-    console.error(err.message);
-    res.status(500).render('500');
-});
+app.use(serverError);
 
 app.listen(port, () => {
     console.log(
